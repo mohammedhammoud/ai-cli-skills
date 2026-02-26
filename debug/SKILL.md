@@ -1,80 +1,62 @@
 ---
 name: debug
-description: Strict, evidence-driven root-cause debugging from a user-specified entrypoint file
+description: Debug a bug from a given entrypoint file, prove root cause, propose a minimal patch
 ---
 
-Use this skill when the user wants to debug a specific issue starting from a known file.
+Use when the user wants root-cause debugging starting from a specific file.
 
-REQUIRED INPUT
-
-The user must provide:
+Required input (must be present):
 
 1. Entrypoint file path
 2. Expected behavior
 3. Actual behavior
-4. Exact error message (if any)
-5. Steps to reproduce
+4. Reproduction steps (how to trigger)
 
-If any of the above is missing:
+Optional:
 
-- Do NOT start debugging.
-- Print exactly which item is missing.
+- Error message / stack trace / logs (if any)
+
+If any required item is missing:
+
+- Print exactly which item(s) are missing.
 - Exit.
 
-DEBUGGING PRINCIPLES
+Rules:
 
-- Never guess.
-- Never refactor broadly.
 - Assume the bug exists.
-- Prove each step before moving forward.
-- Stay behavior-focused, not style-focused.
+- No guessing: every claim must point to code evidence.
+- No broad refactors, no new abstractions, no unrelated improvements.
+- Do not run tests, do not commit, do not open PRs.
 
-WORKFLOW
+Workflow:
 
-1. Inspect the provided entrypoint file.
-2. Identify execution flow from that file.
-3. Follow the runtime path step-by-step.
-4. At each step:
-   - State assumption
-   - Validate against code
-   - Confirm or eliminate
-5. If no issue is found in the entrypoint:
-   - Move one layer deeper in the call chain.
-6. Continue until:
-   - Root cause is proven
-     OR
-   - A clearly bounded hypothesis is formed.
+1. Read the entrypoint file.
+2. Trace the execution path step-by-step.
+3. If not found in entrypoint, follow the call chain one layer at a time until proven.
 
-DO NOT:
+Output:
 
-- Rewrite architecture
-- Introduce new abstractions
-- Suggest unrelated improvements
-- Modify files automatically
-- Run tests automatically
+1. Root cause (file + line + explanation)
+2. Proof (why this matches the observed behavior)
+3. Minimal fix (exact patch/snippet)
+4. Risk level (low|medium|high)
 
-OUTPUT FORMAT
+Then print exactly:
+Type "continue" to apply this minimal patch. Anything else cancels.
 
-1. Root Cause
-   - Exact file + line reference
-   - Clear explanation
+Apply phase (only if next message is exactly "continue"):
 
-2. Proof
-   - Why this causes the observed behavior
+- Apply ONLY the minimal fix described above.
+- Modify ONLY the referenced file(s).
+- Do NOT refactor anything else.
+- Do NOT run tests.
+- Do NOT create commits.
+- Do NOT open pull requests.
+- Do NOT trigger CI.
+- Do NOT invoke other skills.
+- Stop immediately after applying.
 
-3. Minimal Fix
-   - Smallest possible change
+Then print:
 
-4. Risk Level
-   - low | medium | high
-
-If root cause cannot be fully proven:
-
-- Clearly state strongest hypothesis
-- Explain what evidence is missing
-- Ask for the minimal additional data needed
-
-Be precise.
-Be concise.
-No fluff.
-No generic advice.
+- `git status --short`
+- `git diff --stat`
