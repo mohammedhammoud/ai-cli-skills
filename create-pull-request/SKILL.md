@@ -37,12 +37,33 @@ Workflow:
    - Prefer the current branch upstream remote when available.
    - Otherwise prefer `origin` if it exists and fits the repository setup.
    - If no safe remote can be determined, stop and report the blocker.
-2. If the current branch is the default branch, stop and create/switch to a new feature branch before continuing. Do not create or update a PR from the default branch.
-3. Ensure the current branch is pushed to the relevant remote before diffing or opening/updating a PR.
-4. Run `git diff <remote>/<default-branch>...HEAD`.
-5. Include unstaged changes only if the user explicitly asks.
-6. Reason directly over raw diff content.
-7. Generate:
+2. If the current branch is the default branch, do not create or update a PR yet.
+   - Suggest a branch name based on the dominant intent and a short lowercase slug if the current changes provide enough evidence.
+   - Use the same default type vocabulary as Conventional Commits unless repository policy overrides it, for example:
+     - `feat/<slug>`
+     - `fix/<slug>`
+     - `refactor/<slug>`
+     - `docs/<slug>`
+     - `chore/<slug>`
+     - `test/<slug>`
+     - `ci/<slug>`
+     - `perf/<slug>`
+   - Check whether the suggested branch already exists.
+   - If it does not exist, ask whether the user wants you to create and switch to that branch.
+   - If it already exists, say so explicitly and ask whether the user wants you to switch to that branch instead.
+   - Only if the next user message is exactly `yes`, create and switch to the suggested branch, or switch to the existing branch when applicable.
+   - After creating or switching branches, state clearly that the user still needs committed changes on that branch before a PR can be created or updated.
+   - After that message, stop. Do not continue into diff generation, push, or PR creation in the same turn.
+   - Otherwise, stop.
+3. Determine the best available diff source in this order:
+   - committed diff: `git diff <remote>/<default-branch>...HEAD`
+   - staged diff, if the committed diff is empty
+   - unstaged diff, if staged diff is empty
+4. If all diff sources are empty, stop and report that there is no PR content to generate yet.
+5. State explicitly which diff source is being used.
+6. If the user explicitly asks to include unstaged changes, allow that override and state it explicitly.
+7. Reason directly over raw diff content from the selected source.
+8. Generate:
 
 - title: Conventional Commit style, lowercase, max 72 chars, unless the repository defines a different allowed convention
 - body: MUST always be wrapped in this exact marker block (even when creating a new PR):
@@ -58,7 +79,7 @@ Workflow:
   - optional `## Notes`
 - No other sections allowed (no `Summary`, no `Testing`).
 
-8. Validate before applying:
+9. Validate before applying:
 
 - title must match this regex by default, unless repository policy defines a different valid convention:
   `^(feat|fix|refactor|chore|docs|test|ci|perf)(\([a-z0-9._/-]+\))?: [a-z0-9][a-z0-9 -]{0,69}$`
@@ -70,13 +91,19 @@ Workflow:
   - optional `## Notes` with 0–3 bullets
 - The marker block must be the ONLY auto-generated content you create/overwrite.
 
-9. Dry-run output first:
+10. Dry-run output first:
 
 - Print the proposed title and the full body (including markers).
 - Then print exactly:
   `Type 'continue' to apply, anything else to cancel.`
 
-10. Only if the next user message is exactly `continue`:
+11. Only if the next user message is exactly `continue`:
+
+- Re-check whether there is a committed diff: `git diff <remote>/<default-branch>...HEAD`
+- If that committed diff is still empty, stop before any push or `gh` call.
+- In that case, report that PR metadata was generated from staged or unstaged changes only, and that the changes must be committed first before a PR can be created or updated.
+- Only if a committed diff exists:
+  - If the current branch has not been pushed yet, push it to the relevant remote before opening or updating the PR.
 
 - Detect whether an open PR exists for the current branch (prefer PR targeting the default branch).
 
