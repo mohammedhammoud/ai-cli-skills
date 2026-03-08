@@ -5,6 +5,12 @@ description: Fully automate a user request from a fresh branch off the default b
 
 Use this skill when the user wants a mostly hands-off delivery flow.
 
+Repository policy:
+
+- Before applying this skill, read `AGENTS.md` (or equivalent repo-local instructions) if present.
+- Repository-specific workflow, validation, commit, and PR rules override this skill's generic defaults and any referenced sub-skill defaults.
+- If repository policy conflicts with the generic rules below, prefer repository policy and state the conflict briefly if needed.
+
 This is a wrapper skill. Use these repository skills as the baseline for quality and output rules:
 
 - `review`

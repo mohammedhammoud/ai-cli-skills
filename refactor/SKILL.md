@@ -5,6 +5,12 @@ description: Propose minimal, safe code improvements without changing behavior
 
 Use this skill to improve structure, readability, and maintainability without changing behavior.
 
+Repository policy:
+
+- Before applying this skill, read `AGENTS.md` (or equivalent repo-local instructions) if present.
+- Repository-specific rules for validation, file scope, architecture, and output override this skill's generic defaults.
+- If repository policy conflicts with the generic rules below, prefer repository policy and state the conflict briefly if needed.
+
 USAGE (required)
 
 - `$refactor staged`

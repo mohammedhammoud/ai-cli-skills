@@ -20,6 +20,13 @@ Execution permissions:
 
 Use this skill when the user asks to create or update PR metadata.
 
+Repository policy:
+
+- Before applying this skill, read `AGENTS.md` (or equivalent repo-local instructions) if present.
+- Repository-specific commit/PR conventions override this skill's generic defaults.
+- If the repository defines additional allowed commit types, PR title rules, or release-related wording, follow the repository policy.
+- If repository policy conflicts with the generic rules below, prefer repository policy and state the conflict briefly if needed.
+
 Do not use shell scripts for metadata generation.
 Do not use `codex exec` inside any script.
 Do not implement heuristics or pre-classification in bash.
@@ -37,7 +44,7 @@ Workflow:
 6. Reason directly over raw diff content.
 7. Generate:
 
-- title: Conventional Commit style, lowercase, max 72 chars
+- title: Conventional Commit style, lowercase, max 72 chars, unless the repository defines a different allowed convention
 - body: MUST always be wrapped in this exact marker block (even when creating a new PR):
 
   <!-- auto-pr-metadata:start -->
@@ -53,7 +60,7 @@ Workflow:
 
 8. Validate before applying:
 
-- title must match this regex:
+- title must match this regex by default, unless repository policy defines a different valid convention:
   `^(feat|fix|refactor|chore|docs|test|ci|perf)(\([a-z0-9._/-]+\))?: [a-z0-9][a-z0-9 -]{0,69}$`
 - body MUST contain BOTH markers exactly once:
   - `<!-- auto-pr-metadata:start -->`

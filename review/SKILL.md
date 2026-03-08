@@ -19,6 +19,14 @@ Exit.
 
 ---
 
+Repository policy:
+
+- Before applying this skill, read `AGENTS.md` (or equivalent repo-local instructions) if present.
+- Repository-specific rules for testing, risk tolerance, output shape, or review priorities override this skill's generic defaults.
+- If repository policy conflicts with the generic rules below, prefer repository policy and state the conflict briefly if needed.
+
+---
+
 Behavior:
 
 If argument is `staged`:

@@ -5,6 +5,13 @@ description: Generate and optionally apply a Conventional Commit from staged cha
 
 Generate a single best Conventional Commit message from staged changes.
 
+Repository policy:
+
+- Before applying this skill, read `AGENTS.md` (or equivalent repo-local instructions) if present.
+- Repository-specific commit conventions override this skill's generic defaults.
+- If the repository defines additional allowed commit types or narrower commit rules, follow the repository policy.
+- If repository policy conflicts with the generic rules below, prefer repository policy and state the conflict briefly if needed.
+
 Steps:
 
 1. Inspect staged changes:
@@ -17,7 +24,7 @@ Steps:
 Commit rules:
 
 - Format: `<type>(optional-scope): short description`
-- Allowed types: feat, fix, refactor, chore, docs, test, ci, perf
+- Allowed types by default: feat, fix, refactor, chore, docs, test, ci, perf
 - Lowercase only
 - Max 72 characters
 - No trailing period

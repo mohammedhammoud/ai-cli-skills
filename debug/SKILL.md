@@ -5,6 +5,12 @@ description: Debug a bug from a given entrypoint file, prove root cause, propose
 
 Use when the user wants root-cause debugging starting from a specific file.
 
+Repository policy:
+
+- Before applying this skill, read `AGENTS.md` (or equivalent repo-local instructions) if present.
+- Repository-specific constraints on validation, file scope, coding standards, and output override this skill's generic defaults.
+- If repository policy conflicts with the generic rules below, prefer repository policy and state the conflict briefly if needed.
+
 Required input (must be present):
 
 1. Entrypoint file path
