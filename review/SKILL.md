@@ -3,10 +3,10 @@ name: review
 description: Review staged or unstaged changes for bugs, risks, and minimal risk-reducing fixes
 ---
 
-Usage (required):
+Expected input (required):
 
-- $review staged
-- $review changes
+- `staged`
+- `changes`
 
 Argument must be exactly one of:
 - staged
@@ -14,7 +14,7 @@ Argument must be exactly one of:
 
 If missing or invalid:
 Print ONLY:
-Usage: $review staged | $review changes
+Usage: review staged | review changes
 Exit.
 
 ---

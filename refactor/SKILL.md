@@ -11,14 +11,14 @@ Repository policy:
 - Repository-specific rules for validation, file scope, architecture, and output override this skill's generic defaults.
 - If repository policy conflicts with the generic rules below, prefer repository policy and state the conflict briefly if needed.
 
-USAGE (required)
+EXPECTED INPUT (required)
 
-- `$refactor staged`
-- `$refactor changes`
-- `$refactor <file-path>`
+- `staged`
+- `changes`
+- `<file-path>`
 
 If argument is missing, print ONLY:
-`Usage: $refactor staged | $refactor changes | $refactor <file-path>`
+`Usage: refactor staged | refactor changes | refactor <file-path>`
 and exit.
 
 MODE
@@ -82,7 +82,7 @@ Anything else cancels.
 
 APPLY PHASE
 
-Only if next user message is exactly `continue`:
+Only if the user's next reply is exactly `continue`:
 
 - Apply the full proposed refactor set.
 - Modify only in-scope files for selected mode.

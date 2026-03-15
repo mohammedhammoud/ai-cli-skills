@@ -12,7 +12,7 @@ Repository policy:
 - If the repository defines additional allowed commit types or narrower commit rules, follow the repository policy.
 - If repository policy conflicts with the generic rules below, prefer repository policy and state the conflict briefly if needed.
 
-Steps:
+Workflow:
 
 1. Inspect staged changes:
    - Run: `git diff --cached --stat`
@@ -39,7 +39,7 @@ Output rules:
 
 Execution rules:
 
-- Do NOT commit unless the next user message is exactly: continue
+- Do NOT commit unless the user's next confirmation is exactly: continue
 - If user replies `continue`, run:
   `git commit -m "<message>"`
 - Never use `git commit --no-verify` (or any commit command with `--no-verify`).

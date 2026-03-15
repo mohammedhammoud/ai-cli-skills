@@ -50,7 +50,7 @@ Output:
 Then print exactly:
 Type "continue" to apply this minimal patch. Anything else cancels.
 
-Apply phase (only if next message is exactly "continue"):
+Apply phase (only if the user's next reply is exactly "continue"):
 
 - Apply ONLY the minimal fix described above.
 - Modify ONLY the referenced file(s).

@@ -6,7 +6,7 @@ Applies to the entire repository.
 
 ## Purpose
 
-This repository stores reusable Codex skills only.
+This repository stores reusable AI CLI skills.
 Do not introduce project-specific logic.
 
 ## Language

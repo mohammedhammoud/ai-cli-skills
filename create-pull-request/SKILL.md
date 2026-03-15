@@ -28,7 +28,7 @@ Repository policy:
 - If repository policy conflicts with the generic rules below, prefer repository policy and state the conflict briefly if needed.
 
 Do not use shell scripts for metadata generation.
-Do not use `codex exec` inside any script.
+Do not invoke another AI CLI from inside any script.
 Do not implement heuristics or pre-classification in bash.
 
 Workflow:
@@ -51,7 +51,7 @@ Workflow:
    - Check whether the suggested branch already exists.
    - If it does not exist, ask whether the user wants you to create and switch to that branch.
    - If it already exists, say so explicitly and ask whether the user wants you to switch to that branch instead.
-   - Only if the next user message is exactly `yes`, create and switch to the suggested branch, or switch to the existing branch when applicable.
+   - Only if the user's next reply is exactly `yes`, create and switch to the suggested branch, or switch to the existing branch when applicable.
    - After creating or switching branches, state clearly that the user still needs committed changes on that branch before a PR can be created or updated.
    - After that message, stop. Do not continue into diff generation, push, or PR creation in the same turn.
    - Otherwise, stop.
@@ -97,7 +97,7 @@ Workflow:
 - Then print exactly:
   `Type 'continue' to apply, anything else to cancel.`
 
-11. Only if the next user message is exactly `continue`:
+11. Only if the user's next reply is exactly `continue`:
 
 - Re-check whether there is a committed diff: `git diff <remote>/<default-branch>...HEAD`
 - If that committed diff is still empty, stop before any push or `gh` call.

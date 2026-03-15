@@ -60,7 +60,7 @@ Workflow:
 Interaction override:
 
 - This skill is intentionally automatic.
-- Do not stop for the `continue` prompts used by `review`, `refactor`, `commit`, or `create-pull-request` when the result is good enough to proceed safely.
+- Do not stop for the `continue` confirmations used by `review`, `refactor`, `commit`, or `create-pull-request` when the result is good enough to proceed safely.
 - Treat a satisfactory result in those phases as an internal automatic `continue`.
 - If a phase is not good enough, iterate internally instead of asking the user to continue.
 - Stop only for real blockers such as unsafe checkout, missing required context, failed validation you cannot resolve, push failure, or PR creation failure.
