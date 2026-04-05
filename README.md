@@ -17,8 +17,9 @@ Follow the official skill guidance for the CLIs this repo targets:
 
 This repository uses the following layout:
 
-- `<skill-name>/SKILL.md`
-- `<skill-name>/scripts/...` (optional)
+- `skills/<skill-name>/SKILL.md`
+- `skills/<skill-name>/scripts/...` (optional)
+- `instructions.md`
 - `link.sh` (symlinks skills into supported local skill directories)
 
 ## 2. Install / Sync
@@ -40,8 +41,8 @@ The clone path above is only an example. Any local checkout path works.
 
 What `./link.sh` does:
 
-- If `~/.codex` exists, symlinks each skill directory from this repo into `~/.codex/skills`
-- If `~/.copilot` exists, symlinks each skill directory from this repo into `~/.copilot/skills`
+- If `~/.codex` exists, symlinks each skill directory from this repo's `skills/` folder into `~/.codex/skills` and symlinks `instructions.md` into `~/.codex/AGENTS.md`
+- If `~/.copilot` exists, symlinks each skill directory from this repo's `skills/` folder into `~/.copilot/skills` and symlinks `instructions.md` into `~/.copilot/copilot-instructions.md`
 - Removes stale symlinks in those skill directories when a skill from this repo is renamed or removed
 - Skips any CLI home directory that is not present
 
@@ -60,17 +61,17 @@ For a mostly hands-off flow, I use the `lazy` skill to create a branch, implemen
 
 ## 4. Repo Notes
 
-- Re-run `./link.sh` after adding a new skill folder.
+- Re-run `./link.sh` after changing `skills/` or `instructions.md`.
 - Some skills assume a GitHub-hosted repository and detect the relevant remote at runtime.
-- This repository keeps skills global and symlinked; it does not sync `AGENTS.md` or other instruction files into CLI home directories.
+- This repository keeps skills and shared instruction files global and symlinked into supported CLI home directories.
 
 ## 5. Skills
 
-- `commit`: Generate and optionally apply a Conventional Commit from staged changes (`commit/SKILL.md`)
-- `create-or-update-pr`: Update the existing PR for the current branch when one exists, otherwise create a draft PR from git diff (`create-or-update-pr/SKILL.md`)
-- `debug`: Debug from an entrypoint or symptom with quick (default) and strict modes, then propose a minimal patch with evidence (`debug/SKILL.md`)
-- `audit`: Audit staged, unstaged, or file-scoped changes for bugs, risks, and minimal risk-reducing fixes (`audit/SKILL.md`)
-- `lazy`: Run the end-to-end delivery flow from a fresh branch through validation, commit, push, and draft PR (`lazy/SKILL.md`)
-- `rebase`: Rebase the current branch onto the detected default branch, resolve only safe issues, and stop on risky blockers (`rebase/SKILL.md`)
-- `refactor`: Propose minimal, safe code improvements without changing behavior (`refactor/SKILL.md`)
-- `split-commits`: Group current changes into multiple commitlint-compliant commits and apply on confirmation (`split-commits/SKILL.md`)
+- `commit`: Generate and optionally apply a Conventional Commit from staged changes (`skills/commit/SKILL.md`)
+- `create-or-update-pr`: Update the existing PR for the current branch when one exists, otherwise create a draft PR from git diff (`skills/create-or-update-pr/SKILL.md`)
+- `debug`: Debug from an entrypoint or symptom with quick (default) and strict modes, then propose a minimal patch with evidence (`skills/debug/SKILL.md`)
+- `audit`: Audit staged, unstaged, or file-scoped changes for bugs, risks, and minimal risk-reducing fixes (`skills/audit/SKILL.md`)
+- `lazy`: Run the end-to-end delivery flow from a fresh branch through validation, commit, push, and draft PR (`skills/lazy/SKILL.md`)
+- `rebase`: Rebase the current branch onto the detected default branch, resolve only safe issues, and stop on risky blockers (`skills/rebase/SKILL.md`)
+- `refactor`: Propose minimal, safe code improvements without changing behavior (`skills/refactor/SKILL.md`)
+- `split-commits`: Group current changes into multiple commitlint-compliant commits and apply on confirmation (`skills/split-commits/SKILL.md`)
