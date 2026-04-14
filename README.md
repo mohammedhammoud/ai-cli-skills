@@ -1,10 +1,9 @@
 # ai-cli-skills
 
-My personal Codex and GitHub Copilot skills and workflows.
+Personal Codex and GitHub Copilot skills.
+Optimized for my setup. Public as reference.
 
-I am sharing this repository publicly as a reference for how I work with AI-assisted development. These skills are optimized for my own setup and preferences, but parts of them may still be useful or adaptable for others.
-
-If you want more context on the thinking behind this setup, I wrote about it here:
+More context:
 
 - <https://mohammedhammoud.com/blog/how-i-turned-codex-cli-into-a-structured-engineering-assistant/>
 
@@ -15,63 +14,67 @@ Follow the official skill guidance for the CLIs this repo targets:
 - <https://platform.openai.com/docs/guides/skills>
 - <https://docs.github.com/en/copilot/how-tos/copilot-cli/customize-copilot/create-skills>
 
-This repository uses the following layout:
+Layout:
 
-- `skills/<skill-name>/SKILL.md`
-- `skills/<skill-name>/scripts/...` (optional)
-- `instructions.md`
-- `link.sh` (symlinks skills into supported local skill directories)
+- `src/skills/<skill-name>/SKILL.md`
+- `src/skills/<skill-name>/scripts/...` (optional)
+- `src/instructions.md`
+- `install.sh`
 
 ## 2. Install / Sync
 
-Prerequisites:
+Need:
 
 - `git`
 - Codex and/or GitHub Copilot CLI with local skills support
 - `gh` CLI for workflows that create or update pull requests
 - GitHub authentication configured for `gh` when using PR automation
+- `rtk` recommended
 
 ```bash
 git clone <your-fork-or-repo-url> ~/code/ai-cli-skills
 cd ~/code/ai-cli-skills
-./link.sh
+./install.sh
 ```
 
-The clone path above is only an example. Any local checkout path works.
+Path is example only.
 
-What `./link.sh` does:
+`./install.sh`:
 
-- If `~/.codex` exists, symlinks each skill directory from this repo's `skills/` folder into `~/.codex/skills` and symlinks `instructions.md` into `~/.codex/AGENTS.md`
-- If `~/.copilot` exists, symlinks each skill directory from this repo's `skills/` folder into `~/.copilot/skills` and symlinks `instructions.md` into `~/.copilot/copilot-instructions.md`
+- Offers to install `rtk` if missing
+- If `rtk` exists, offers to run `rtk init` for detected tools
+- If `~/.codex` exists, symlinks each skill directory from `src/skills/` into `~/.codex/skills` and symlinks `src/instructions.md` into `~/.codex/AGENTS.md`
+- If `~/.copilot` exists, symlinks each skill directory from `src/skills/` into `~/.copilot/skills` and symlinks `src/instructions.md` into `~/.copilot/copilot-instructions.md`
 - Removes stale symlinks in those skill directories when a skill from this repo is renamed or removed
 - Skips any CLI home directory that is not present
 
 ## 3. Typical Workflow
 
-1. For bug investigations, invoke the `debug` skill first for strict, step-by-step root-cause analysis.
-2. Make changes, or invoke the `refactor` skill for behavior-preserving structural cleanup.
-3. Invoke the `audit` skill.
-4. Fix the changes if needed.
-5. Invoke the `commit` skill.
-6. Accept the suggested commit message.
-7. Invoke the `create-or-update-pr` skill.
-8. Continue if everything looks good.
+1. `debug`
+2. change code or `refactor`
+3. `audit`
+4. fix if needed
+5. `commit`
+6. accept commit message
+7. `create-or-update-pr`
+8. continue if good
 
-For a mostly hands-off flow, I use the `lazy` skill to create a branch, implement the change, run an audit, commit it, push it, and open or update a draft PR.
+Hands-off flow: `lazy`.
 
 ## 4. Repo Notes
 
-- Re-run `./link.sh` after changing `skills/` or `instructions.md`.
-- Some skills assume a GitHub-hosted repository and detect the relevant remote at runtime.
-- This repository keeps skills and shared instruction files global and symlinked into supported CLI home directories.
+- Re-run `./install.sh` after changing `src/skills/` or `src/instructions.md`.
+- Prefer `rtk` when installed. Fallback to raw commands when needed.
+- Some skills assume GitHub-hosted repos and detect remotes at runtime.
+- Skills and shared instructions are global symlinks into supported CLI home dirs.
 
 ## 5. Skills
 
-- `commit`: Generate and optionally apply a Conventional Commit from staged changes (`skills/commit/SKILL.md`)
-- `create-or-update-pr`: Update the existing PR for the current branch when one exists, otherwise create a draft PR from git diff (`skills/create-or-update-pr/SKILL.md`)
-- `debug`: Debug from an entrypoint or symptom with quick (default) and strict modes, then propose a minimal patch with evidence (`skills/debug/SKILL.md`)
-- `audit`: Audit staged, unstaged, or file-scoped changes for bugs, risks, and minimal risk-reducing fixes (`skills/audit/SKILL.md`)
-- `lazy`: Run the end-to-end delivery flow from a fresh branch through validation, commit, push, and draft PR (`skills/lazy/SKILL.md`)
-- `rebase`: Rebase the current branch onto the detected default branch, resolve only safe issues, and stop on risky blockers (`skills/rebase/SKILL.md`)
-- `refactor`: Propose minimal, safe code improvements without changing behavior (`skills/refactor/SKILL.md`)
-- `split-commits`: Group current changes into multiple commitlint-compliant commits and apply on confirmation (`skills/split-commits/SKILL.md`)
+- `commit`: commit message from staged diff (`src/skills/commit/SKILL.md`)
+- `create-or-update-pr`: create or refresh draft PR metadata (`src/skills/create-or-update-pr/SKILL.md`)
+- `debug`: root-cause debug, then minimal patch (`src/skills/debug/SKILL.md`)
+- `audit`: review diff for bugs and risk (`src/skills/audit/SKILL.md`)
+- `lazy`: end-to-end branch, change, validate, commit, push, draft PR (`src/skills/lazy/SKILL.md`)
+- `rebase`: safe local rebase only (`src/skills/rebase/SKILL.md`)
+- `refactor`: safe behavior-preserving cleanup (`src/skills/refactor/SKILL.md`)
+- `split-commits`: split current changes into coherent commits (`src/skills/split-commits/SKILL.md`)

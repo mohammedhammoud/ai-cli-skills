@@ -2,18 +2,19 @@
 
 ## Scope
 
-Applies to the entire repository.
+Whole repo.
 
 ## Purpose
 
-This repository stores reusable AI CLI skills.
-Do not introduce project-specific logic.
+Repo stores reusable AI CLI skills.
+No project-specific logic.
+Source lives in `src/`.
 
 ## Language
 
-All files must be written in English.
+Write all files in English.
 
 ## Editing Constraints
 
 - Keep changes minimal.
-- Each skill must be self-contained in its own SKILL.md.
+- Keep each skill self-contained in its own `SKILL.md`.
