@@ -5,9 +5,7 @@ trap 'log_error "error occurred on line $LINENO"' ERR
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SRC_ROOT="${ROOT}/src"
 SKILLS_ROOT="${SRC_ROOT}/skills"
-INSTRUCTIONS_ROOT="${SRC_ROOT}/instructions"
-GUIDANCE_SOURCE="${INSTRUCTIONS_ROOT}/guidance.md"
-RTK_SOURCE="${INSTRUCTIONS_ROOT}/rtk-awareness.md"
+INSTRUCTIONS_SOURCE="${SRC_ROOT}/instructions.md"
 
 ALL_CLIS=(
   codex
@@ -59,13 +57,11 @@ get_cli_config() {
       CLI_HOME="${HOME}/.codex"
       CLI_SKILLS_DEST="${CLI_HOME}/skills"
       CLI_INSTRUCTION_DEST="${CLI_HOME}/AGENTS.md"
-      CLI_RTK_DEST="${CLI_HOME}/RTK.md"
       ;;
     copilot)
       CLI_HOME="${HOME}/.copilot"
       CLI_SKILLS_DEST="${CLI_HOME}/skills"
       CLI_INSTRUCTION_DEST="${CLI_HOME}/copilot-instructions.md"
-      CLI_RTK_DEST="${CLI_HOME}/RTK.md"
       ;;
     *)
       log_warn "$cli: unknown cli"
@@ -190,8 +186,7 @@ main() {
     log_step "$cli: syncing"
     cleanup_stale_links "$CLI_SKILLS_DEST" "$cli"
     link_skills "$CLI_SKILLS_DEST" "$cli"
-    link_file "$GUIDANCE_SOURCE" "$CLI_INSTRUCTION_DEST" "$cli" "$(basename "$CLI_INSTRUCTION_DEST")"
-    link_file "$RTK_SOURCE" "$CLI_RTK_DEST" "$cli" "RTK.md"
+    link_file "$INSTRUCTIONS_SOURCE" "$CLI_INSTRUCTION_DEST" "$cli" "$(basename "$CLI_INSTRUCTION_DEST")"
   done
 
   log_ok "sync complete"
