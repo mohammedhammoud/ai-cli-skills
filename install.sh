@@ -169,10 +169,33 @@ link_file() {
   log_ok "$label: linked $name -> $target"
 }
 
+install_rtk() {
+  if command -v rtk >/dev/null 2>&1; then
+    log_info "rtk: found"
+    return 0
+  fi
+
+  log_warn "rtk: missing"
+
+  if command -v brew >/dev/null 2>&1; then
+    brew install rtk
+    return 0
+  fi
+
+  if command -v curl >/dev/null 2>&1; then
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/rtk-ai/rtk/refs/heads/master/install.sh)"
+    return 0
+  fi
+
+  log_error "rtk: cannot auto-install. See https://github.com/rtk-ai/rtk"
+  return 1
+}
+
 main() {
   local cli
 
   pick_clis
+  install_rtk
   log_step "starting sync"
 
   for cli in "${SELECTED_CLIS[@]}"; do

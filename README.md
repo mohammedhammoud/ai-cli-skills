@@ -30,7 +30,6 @@ Prerequisites:
 - Codex and/or GitHub Copilot CLI with local skills support
 - `gh` CLI for workflows that create or update pull requests
 - GitHub authentication configured for `gh` when using PR automation
-- `rtk` recommended
 
 ```bash
 git clone <your-fork-or-repo-url> ~/code/ai-cli-kit
@@ -42,8 +41,7 @@ The path above is only an example.
 
 What `./install.sh` does:
 
-- Offers to install `rtk` if it is missing
-- If `rtk` exists, offers to run `rtk init` for detected tools
+- Installs `rtk` if missing (via Homebrew or curl)
 - If `~/.codex` exists, symlinks each skill directory from `src/skills/` into `~/.codex/skills` and symlinks `src/instructions.md` into `~/.codex/AGENTS.md`
 - If `~/.copilot` exists, symlinks each skill directory from `src/skills/` into `~/.copilot/skills` and symlinks `src/instructions.md` into `~/.copilot/copilot-instructions.md`
 - Removes stale symlinks when a skill from this repo is renamed or removed
@@ -64,7 +62,6 @@ For a mostly hands-off flow, use `lazy`.
 ## Repo Notes
 
 - Re-run `./install.sh` after changing `src/skills/` or `src/instructions.md`.
-- `rtk` is preferred when installed, but raw commands still work.
 - Some skills assume a GitHub-hosted repository and detect remotes at runtime.
 - Skills and shared instructions are intended to be globally symlinked into supported CLI home directories.
 
