@@ -11,6 +11,7 @@ Run `git diff --cached --stat`. Run `git diff --cached` only if needed. Draft 3 
 
 Rules:
 
+- all shell commands: use `rtk <cmd>`, never raw command; `git status` = bad, `rtk git status` = good.
 - format: `<type>(optional-scope): short description`
 - default types: `feat`, `fix`, `refactor`, `chore`, `docs`, `test`, `ci`, `perf`
 - lowercase only

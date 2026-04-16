@@ -17,6 +17,7 @@ Scope:
 
 Rules:
 
+- all shell commands: use `rtk <cmd>`, never raw command; `git status` = bad, `rtk git status` = good.
 - preserve behavior exactly
 - preserve external contracts: public API, file/module names, exports, schemas, interfaces, signatures
 - no new features, bug-fix creep, or architectural rewrites

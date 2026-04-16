@@ -12,6 +12,7 @@ If current branch already has an open PR, update it. No duplicate PR.
 
 Rules:
 
+- All shell commands: use `rtk <cmd>`, never raw command; `git status` = bad, `rtk git status` = good.
 - No shell-script heuristics.
 - Reason over raw diff.
 - Keep output concise.

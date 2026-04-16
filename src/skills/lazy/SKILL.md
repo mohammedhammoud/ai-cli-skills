@@ -6,6 +6,8 @@ argument-hint: "Describe the task and constraints for end-to-end delivery"
 
 Use for hands-off delivery.
 
+All shell commands: use `rtk <cmd>`, never raw command; `git status` = bad, `rtk git status` = good.
+
 Wrapper Skills:
 
 - `audit`

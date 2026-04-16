@@ -6,6 +6,8 @@ argument-hint: "Optional: <target-branch> plus extra rebase constraints or confl
 
 Use for local rebase only. Never push.
 
+All shell commands: use `rtk <cmd>`, never raw command; `git status` = bad, `rtk git status` = good.
+
 Target:
 
 - default: repo default/base branch
