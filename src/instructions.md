@@ -2,7 +2,7 @@
 
 ## Constraint
 
-All shell commands via `rtk`, e.g. `rtk <cmd>`. Never invoke directly.
+All shell commands: use `rtk <cmd>`, never raw command; `git status` = bad, `rtk git status` = good.
 
 ### Workflow
 
