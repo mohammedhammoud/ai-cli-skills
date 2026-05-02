@@ -1,6 +1,6 @@
 # ai-cli-kit
 
-Personal Codex and GitHub Copilot skills and workflows.
+Personal AI skills and workflows.
 
 This repository is public as a reference for how I work with AI-assisted development. It is optimized for my own setup and preferences, but parts may still be useful for others.
 
@@ -27,7 +27,7 @@ Repository layout:
 Prerequisites:
 
 - `git`
-- Codex and/or GitHub Copilot CLI with local skills support
+- Supported AI CLI (e.g., Codex, GitHub Copilot, or Pi) with local skills support
 - `gh` CLI for workflows that create or update pull requests
 - GitHub authentication configured for `gh` when using PR automation
 
@@ -44,6 +44,7 @@ What `./install.sh` does:
 - Installs `rtk` if missing (via Homebrew or curl)
 - If `~/.codex` exists, symlinks each skill directory from `src/skills/` into `~/.codex/skills` and symlinks `src/instructions.md` into `~/.codex/AGENTS.md`
 - If `~/.copilot` exists, symlinks each skill directory from `src/skills/` into `~/.copilot/skills` and symlinks `src/instructions.md` into `~/.copilot/copilot-instructions.md`
+- If `~/.pi/agent` exists, symlinks each skill directory from `src/skills/` into `~/.pi/agent/skills` and symlinks `src/instructions.md` into `~/.pi/agent/APPEND_SYSTEM.md`
 - Removes stale symlinks when a skill from this repo is renamed or removed
 - Skips any CLI home directory that does not exist
 
